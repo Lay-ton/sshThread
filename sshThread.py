@@ -3,6 +3,7 @@ import threading
 import subprocess
 import paramiko
 import getpass
+import findMachines
 
 # Gets rid of some annoying output to the terminal from Cryptography being deprecated
 import warnings
@@ -42,7 +43,7 @@ def check_list(dic):
 	return True
 #########################################################################
 
-machines = ['hydra', 'risk', 'indus', 'orion']
+machines = findMachines.get_Machines()
 
 # Sets up all the dynamic variables
 lock_list = {}
