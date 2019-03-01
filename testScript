@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# First: num of runs
+# Second: num of tests
+# Test names follow
+
+LOOKING="fail"
+TESTS=()
+
+const=0
+value=$(($3 + 3))
+for var in "${@:4:$value}"
+do
+	TESTS[$const]=$var
+	const=$(($const+1))
+done
+
+rm ./output.txt
+
+for (( i = 1; i <= $2; i++))
+do
+	for index in "${TESTS[@]}"
+	do
+		TEST=$(make -s clean $index.result)
+		echo "$TEST" >> ../Output$1.txt
+		if echo "$TEST" | grep -q "$LOOKING"; then
+			cat ./$index.raw >> ../Output$1.txt
+		fi
+	done
+done
+
+make clean
